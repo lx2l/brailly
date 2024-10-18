@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brailly</title>
+  <link rel="icon" href="icon.png">
+    <style>
+        /* Importar las fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Gabarito:wght@400..900&display=swap');
+
+        /* Fuente personalizada que será cargada desde los archivos locales */
+        @font-face {
+            font-family: 'Braille';
+            src: url('BrailleNormal-lLDX.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Configuración básica del cuerpo */
+        body {
+            margin: 0;
+            font-family: 'Gabarito', sans-serif;
+            background-color: #D7E9EC;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 0 20px; /* Espaciado general en los lados */
+        }
+
+        /* Mantener el logo fijo en la esquina superior izquierda */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 10px;
+        }
+
+        .logo {
+            height: 80px;
+        }
+
+        /* Sección de introducción */
+        .intro {
+            text-align: left;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 80px;
+            padding: 0 20px;
+        }
+
+        .intro h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-family: 'Gabarito', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Traductor centrado */
+        .translator-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .translator {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Cuadro de texto de entrada */
+        #input-text {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Gabarito', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        /* Cuadro de resultado */
+        #output-text {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-family: 'Braille', sans-serif;
+            margin-top: 70px;
+            background-color: #fff; /* Fondo blanco */
+            color: #000; /* Color del texto */
+        }
+
+        /* Ocultar texto en el cuadro de salida inicialmente */
+        #output-text:empty {
+            background-color: #fff; /* Fondo blanco */
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        /* Estilos para vista móvil */
+        @media (max-width: 600px) {
+            body {
+                padding: 0 15px;
+            }
+
+            .intro, .translator {
+                padding: 0 10px;
+            }
+
+            .intro h1 {
+                font-size: 2rem;
+            }
+
+            .intro p {
+                font-size: 1rem;
+            }
+
+            #input-text, #output-text {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo en la esquina superior izquierda -->
+    <header>
+               <img src="logo.svg" alt="Logo" class="logo">
+    </header>
+
+    <main>
+        <!-- Introducción -->
+        <section class="intro">
+            <h1>Brailly</h1>
+            <p>Brailly is a website that works as a kind of text translator to the Braille writing system, in a simple way.</p>
+        </section>
+
+        <!-- Traductor centrado -->
+        <div class="translator-container">
+            <section class="translator">
+                <textarea id="input-text" placeholder="Write here... "></textarea>
+                <button onclick="translateText()">Translate</button>
+                <!-- Cuadro para el resultado -->
+                <textarea id="output-text" placeholder="" readonly></textarea>
+          
+          
+  
+          <img src="icon.svg" alt="Logo Icon">
+          <h1>What is Braille?</h1>
+          <p>Braille is a tactile reading and writing system designed for people who are blind or visually impaired. It consists of a set of symbols representing letters, numbers and other characters, formed by combinations of raised dots arranged in a six-position cell (two columns and three rows).</p>
+          
+          <img src="icon2.svg" alt="Icon">
+       <h1>What is its origin?</h1>
+       <p>Braille was developed by Louis Braille, a young blind Frenchman, in the 19th century. Braille lost his sight at the age of three due to an accident, and in 1824, at the age of 15, he created this system based on a tactile writing method used by the French army called "night writing", which was used so that soldiers could communicate in the dark. Louis Braille simplified this system, making it more accessible and practical for everyday reading and writing. </p>
+       
+       <img src="icon3.svg" alt="Icon">
+       <h1>How does it help us?</h1>
+       <p>Braille allows blind people to read books, documents and other printed materials, providing access to information that might otherwise be inaccessible.</p>
+       <p>It facilitates the education of the visually impaired, enabling them to learn and participate in academic environments alongside their peers. </p>
+       <p>It promotes social and labor inclusion, as it allows blind people to integrate into society more effectively. </p>
+          <p>Learning Braille also contributes to the development of motor and cognitive skills, which improves the autonomy and confidence of blind people. </p>
+          
+          <img src="credit.svg" alt="Thanks for everything!">
+          
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Función para traducir el texto
+        function translateText() {
+            const inputText = document.getElementById('input-text').value;
+            
+            // Simple lógica para mostrar el texto traducido
+            const translatedText = inputText.toUpperCase(); // Ejemplo simple: mayúsculas
+
+            // Mostrar el resultado en el cuadro de salida
+            const outputText = document.getElementById('output-text');
+            if (translatedText) {
+                outputText.value = translatedText;
+            } else {
+                outputText.value = ''; // Limpiar si no hay entrada
+            }
+        }
+    </script>
+</body>
+</html>

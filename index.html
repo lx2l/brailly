@@ -142,12 +142,12 @@
 <body>
     <!-- Logo en la esquina superior izquierda -->
     <header>
-        <img src="logo.svg" alt="Logo" class="logo">
+        <img src="icon.svg" alt="Logo" class="logo">
     </header>
 
     <main>
         <!-- Introducción -->
-        <section class="intro">
+             <section class="intro">
             <h1>Brailly</h1>
             <p>Brailly is a website that works as a kind of text translator to the Braille writing system, in a simple way.</p>
         </section>
@@ -177,30 +177,46 @@
 
 
 
-                <img src="credit.svg" alt="¡Gracias por todo!">
+                <img src="credit.svg" alt="Thanks!">
             </section>
         </div>
     </main>
 
     <script>
-        // Función para traducir el texto a Braille
+        // Mapas para la traducción
+        const brailleMap = {
+            'a': '⠁', 'b': '⠃', 'c': '⠉', 'd': '⠙', 'e': '⠑', 'f': '⠋', 
+            'g': '⠛', 'h': '⠓', 'i': '⠊', 'j': '⠚', 'k': '⠅', 'l': '⠇', 
+            'm': '⠍', 'n': '⠝', 'o': '⠕', 'p': '⠏', 'q': '⠟', 'r': '⠗', 
+            's': '⠎', 't': '⠞', 'u': '⠥', 'v': '⠧', 'w': '⠺', 'x': '⠭', 
+            'y': '⠽', 'z': '⠵', '1': '⠼⠁', '2': '⠼⠃', '3': '⠼⠉', 
+            '4': '⠼⠙', '5': '⠼⠑', '6': '⠼⠋', '7': '⠼⠛', '8': '⠼⠓', 
+            '9': '⠼⠊', '0': '⠼⠚', ' ': ' '
+        };
+
+        // Crear un mapa inverso para la conversión de Braille a texto
+        const brailleInverseMap = Object.fromEntries(
+            Object.entries(brailleMap).map(([key, value]) => [value, key])
+        );
+
+        // Función para traducir el texto a Braille o de Braille a texto
         function translateText() {
             const inputText = document.getElementById('input-text').value;
-
-            // Lógica para convertir texto a Braille usando caracteres Unicode
-            const brailleMap = {
-                'a': '⠁', 'b': '⠃', 'c': '⠉', 'd': '⠙', 'e': '⠑', 'f': '⠋', 
-                'g': '⠛', 'h': '⠓', 'i': '⠊', 'j': '⠚', 'k': '⠅', 'l': '⠇', 
-                'm': '⠍', 'n': '⠝', 'o': '⠕', 'p': '⠏', 'q': '⠟', 'r': '⠗', 
-                's': '⠎', 't': '⠞', 'u': '⠥', 'v': '⠧', 'w': '⠺', 'x': '⠭', 
-                'y': '⠽', 'z': '⠵', '1': '⠼⠁', '2': '⠼⠃', '3': '⠼⠉', 
-                '4': '⠼⠙', '5': '⠼⠑', '6': '⠼⠋', '7': '⠼⠛', '8': '⠼⠓', 
-                '9': '⠼⠊', '0': '⠼⠚', ' ': ' '
-            };
-
             let translatedText = '';
-            for (let char of inputText.toLowerCase()) {
-                translatedText += brailleMap[char] || ''; // Añade el carácter Braille correspondiente o vacío si no se encuentra
+
+            // Determinar si el texto es Braille o texto normal
+            if (inputText.trim() === '') {
+                translatedText = '';
+            } else if (inputText.split('').every(char => brailleInverseMap[char])) {
+                // Si el texto ingresado está en Braille, convertir a texto
+                for (let char of inputText) {
+                    translatedText += brailleInverseMap[char] || ''; // Añade el carácter ASCII correspondiente
+                }
+            } else {
+                // Si no es Braille, convertir a Braille
+                for (let char of inputText.toLowerCase()) {
+                    translatedText += brailleMap[char] || ''; // Añade el carácter Braille correspondiente o vacío si no se encuentra
+                }
             }
 
             // Mostrar el resultado en el cuadro de salida

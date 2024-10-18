@@ -4,18 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brailly</title>
-  <link rel="icon" href="icon.png">
+    <link rel="icon" href="icon.png">
     <style>
         /* Importar las fuentes */
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Gabarito:wght@400..900&display=swap');
-
-        /* Fuente personalizada que será cargada desde los archivos locales */
-        @font-face {
-            font-family: 'Braille';
-            src: url('BrailleNormal-lLDX.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
 
         /* Configuración básica del cuerpo */
         body {
@@ -99,8 +91,6 @@
             border: 2px solid #333;
             border-radius: 8px;
             font-size: 1.5rem;
-            font-family: 'Braille', sans-serif;
-            margin-top: 70px;
             background-color: #fff; /* Fondo blanco */
             color: #000; /* Color del texto */
         }
@@ -152,7 +142,7 @@
 <body>
     <!-- Logo en la esquina superior izquierda -->
     <header>
-               <img src="logo.svg" alt="Logo" class="logo">
+        <img src="logo.svg" alt="Logo" class="logo">
     </header>
 
     <main>
@@ -169,45 +159,53 @@
                 <button onclick="translateText()">Translate</button>
                 <!-- Cuadro para el resultado -->
                 <textarea id="output-text" placeholder="" readonly></textarea>
-          
-          
-  
-          <img src="icon.svg" alt="Logo Icon">
-          <h1>What is Braille?</h1>
-          <p>Braille is a tactile reading and writing system designed for people who are blind or visually impaired. It consists of a set of symbols representing letters, numbers and other characters, formed by combinations of raised dots arranged in a six-position cell (two columns and three rows).</p>
-          
-          <img src="icon2.svg" alt="Icon">
-       <h1>What is its origin?</h1>
-       <p>Braille was developed by Louis Braille, a young blind Frenchman, in the 19th century. Braille lost his sight at the age of three due to an accident, and in 1824, at the age of 15, he created this system based on a tactile writing method used by the French army called "night writing", which was used so that soldiers could communicate in the dark. Louis Braille simplified this system, making it more accessible and practical for everyday reading and writing. </p>
-       
-       <img src="icon3.svg" alt="Icon">
-       <h1>How does it help us?</h1>
-       <p>Braille allows blind people to read books, documents and other printed materials, providing access to information that might otherwise be inaccessible.</p>
-       <p>It facilitates the education of the visually impaired, enabling them to learn and participate in academic environments alongside their peers. </p>
-       <p>It promotes social and labor inclusion, as it allows blind people to integrate into society more effectively. </p>
-          <p>Learning Braille also contributes to the development of motor and cognitive skills, which improves the autonomy and confidence of blind people. </p>
-          
-          <img src="credit.svg" alt="Thanks for everything!">
-          
+
+                <img src="icon.svg" alt="Logo Icon">
+                <h1>What is Braille?</h1>
+                <p>Braille is a tactile reading and writing system designed for people who are blind or visually impaired. It consists of a set of symbols representing letters, numbers and other characters, formed by combinations of raised dots arranged in a six-position cell (two columns and three rows).</p>
+
+                <img src="icon2.svg" alt="Icon">
+                <h1>What is its origin?</h1>
+                <p>Braille was developed by Louis Braille, a young blind Frenchman, in the 19th century. Braille lost his sight at the age of three due to an accident, and in 1824, at the age of 15, he created this system based on a tactile writing method used by the French army called "night writing", which was used so that soldiers could communicate in the dark. Louis Braille simplified this system, making it more accessible and practical for everyday reading and writing.</p>
+
+                <img src="icon3.svg" alt="Icon">
+                <h1>How does it help us?</h1>
+                <p>Braille allows blind people to read books, documents and other printed materials, providing access to information that might otherwise be inaccessible.</p>
+<p>It facilitates the education of the visually impaired, enabling them to learn and participate in academic environments alongside their peers.</p>
+<p>It promotes social and labor inclusion, as it allows blind people to integrate into society more effectively.</p>
+<p>Learning Braille also contributes to the development of motor and cognitive skills, which improves the autonomy and confidence of blind people. </p>
+
+
+
+                <img src="credit.svg" alt="¡Gracias por todo!">
             </section>
         </div>
     </main>
 
     <script>
-        // Función para traducir el texto
+        // Función para traducir el texto a Braille
         function translateText() {
             const inputText = document.getElementById('input-text').value;
-            
-            // Simple lógica para mostrar el texto traducido
-            const translatedText = inputText.toUpperCase(); // Ejemplo simple: mayúsculas
+
+            // Lógica para convertir texto a Braille usando caracteres Unicode
+            const brailleMap = {
+                'a': '⠁', 'b': '⠃', 'c': '⠉', 'd': '⠙', 'e': '⠑', 'f': '⠋', 
+                'g': '⠛', 'h': '⠓', 'i': '⠊', 'j': '⠚', 'k': '⠅', 'l': '⠇', 
+                'm': '⠍', 'n': '⠝', 'o': '⠕', 'p': '⠏', 'q': '⠟', 'r': '⠗', 
+                's': '⠎', 't': '⠞', 'u': '⠥', 'v': '⠧', 'w': '⠺', 'x': '⠭', 
+                'y': '⠽', 'z': '⠵', '1': '⠼⠁', '2': '⠼⠃', '3': '⠼⠉', 
+                '4': '⠼⠙', '5': '⠼⠑', '6': '⠼⠋', '7': '⠼⠛', '8': '⠼⠓', 
+                '9': '⠼⠊', '0': '⠼⠚', ' ': ' '
+            };
+
+            let translatedText = '';
+            for (let char of inputText.toLowerCase()) {
+                translatedText += brailleMap[char] || ''; // Añade el carácter Braille correspondiente o vacío si no se encuentra
+            }
 
             // Mostrar el resultado en el cuadro de salida
             const outputText = document.getElementById('output-text');
-            if (translatedText) {
-                outputText.value = translatedText;
-            } else {
-                outputText.value = ''; // Limpiar si no hay entrada
-            }
+            outputText.value = translatedText;
         }
     </script>
 </body>
